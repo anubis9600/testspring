@@ -39,6 +39,8 @@ public class TestspringApplication {
 		String email,
 		Integer age
 	){}
+	// record UpdateCustomerRequest(Integer id, String name, String email, Integer age){
+	// }
 
 	@PostMapping
 	public void addCustomer(@RequestBody NewCustomerRequest request){
@@ -56,8 +58,10 @@ public class TestspringApplication {
 	}
 
 	@PutMapping("{customerId}")
-	public void updateCustomer(@PathVariable("customerId") Integer id, @RequestBody NewCustomerRequest request){
-		Customer customer = new Customer();
+	public void updateCustomer(@PathVariable("customerId") Integer id,
+								@RequestBody NewCustomerRequest request){
+
+		Customer customer = customerRepository.findById(id).orElse(null);
 		customer.setName(request.name);
 		customer.setEmail(request.email);
 		customer.setAge(request.age);
